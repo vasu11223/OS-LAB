@@ -1,47 +1,30 @@
-#include <stdio.h>
-int main()
+#include<stdio.h>
+#include<conio.h>
+main()
 {
-    int pid[15];
-    int bt[15];
-    int n;
-    printf("Enter the number of processes: ");
-    scanf("%d",&n);
- 
-    printf("Enter process id of all the processes: ");
-    for(int i=0;i<n;i++)
-    {
-        scanf("%d",&pid[i]);
-    }
- 
-    printf("Enter burst time of all the processes: ");
-    for(int i=0;i<n;i++)
-    {
-        scanf("%d",&bt[i]);
-    }
- 
-    int i, wt[n];
-    wt[0]=0;
-    for(i=1; i<n; i++)
-    {
-        wt[i]= bt[i-1]+ wt[i-1];
-    }
- 
-    printf("Process ID     Burst Time     Waiting Time     TurnAround Time\n");
-    float twt=0.0;
-    float tat= 0.0;
-    for(i=0; i<n; i++)
-    {
-        printf("%d\t\t", pid[i]);
-        printf("%d\t\t", bt[i]);
-        printf("%d\t\t", wt[i]);
-        printf("%d\t\t", bt[i]+wt[i]);
-        printf("\n");
-        twt += wt[i];
-        tat += (wt[i]+bt[i]);
-    }
-    float att,awt;
-    awt = twt/n;
-    att = tat/n;
-    printf("Avg. waiting time= %f\n",awt);
-    printf("Avg. turnaround time= %f",att);
+int bt[20], wt[20], tat[20], i, n;
+float wtavg, tatavg;
+clrscr();
+printf("\nEnter the number of processes -- ");
+scanf("%d", &n);
+for(i=0;i<n;i++)
+{
+printf("\nEnter Burst Time for Process %d -- ", i);
+scanf("%d", &bt[i]);
+}
+wt[0] = wtavg = 0;
+tat[0] = tatavg = bt[0];
+for(i=1;i<n;i++)
+{
+wt[i] = wt[i-1] +bt[i-1];
+tat[i] = tat[i-1] +bt[i];
+wtavg = wtavg + wt[i];
+tatavg = tatavg + tat[i];
+}
+printf("\t PROCESS \tBURST TIME \t WAITING TIME\t TURNAROUND TIME\n");
+for(i=0;i<n;i++)
+printf("\n\t P%d \t\t %d \t\t %d \t\t %d", i, bt[i], wt[i], tat[i]);
+printf("\nAverage Waiting Time -- %f", wtavg/n);
+printf("\nAverage Turnaround Time -- %f", tatavg/n);
+getch();
 }
